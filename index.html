@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<base href="https://www.drifted.com">
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Drift Hunters</title>
+<link rel="shortcut icon" type="image/x-icon" href="/wp-content/themes/bricks-child/favicon.ico">
+</head>
+<body class="iframe">
+<style>.large-game-wrapper>div{position:absolute;top:0;left:0;width:100%;height:100%;background-color:#000;}
+body.fullscreen-game .large-game-wrapper{position:fixed!important;top:0px;bottom:0;left:0;right:0;padding-bottom:0px!important;height:auto!important;margin:auto!important;z-index:10000001;}
+.large-game-wrapper iframe:not(#AdThrive_Footer_1_phone iframe):not(#AdThrive_Footer_1_desktop iframe){border:none;position:absolute;left:0;top:0;right:0;bottom:0;width:100%;height:100%;}
+body{font-family:Arial, Helvetica, sans-serif;}
+body.fullscreen-game{overflow:hidden;}
+#gameContainer canvas{width:100%;height:100%;}
+body.iframe{overflow:hidden;}
+#gameContainer{background:url('/media/games/assets/img/drifted-game-loader-logo-background.webp') no-repeat;background-size:cover;position:absolute;top:0;left:0;bottom:38px;right:0;display:flex;justify-content:center;align-items:center;
+-webkit-touch-callout:default;
+-webkit-user-select:auto;
+-khtml-user-select:auto;
+-moz-user-select:auto;
+-ms-user-select:element;
+user-select:auto;
+}
+.large-game-wrapper.no-footer #gameContainer{bottom:0!important;}
+#game-footer{background:url('/media/games/assets/img/game-loader-drifted-logo.png') no-repeat 5px 7px #068bc4;color:#ffffff;font-family:Helvetica, Verdana, Arial, sans-serif;font-size:18px;position:absolute;bottom:0;left:0;height:38px;line-height:38px;width:100%;z-index:2;}
+.webgl-logo{display:block;width:100px!important;float:left!important;}
+#game-footer>a{overflow:visible;position:relative;border-right:1px solid #068bc4;height:38px;float:right;cursor:pointer;text-decoration:none;color:#FFF;}
+#game-footer>span{float:right;}
+#game-footer>a:not(.title){width:38px;}
+#game-footer>a:not(.title, .webgl-logo):hover{background-color:#068bc4;}
+#game-footer > a:not(.title, .webgl-logo)::before{background:#068bc4;border-radius:5px;color:#fff;font-size:9px;font-weight:bold;line-height:20px;position:absolute;text-transform:uppercase;text-align:center;padding:5px;white-space:nowrap;bottom:45px;left:50%;transform:translateX(-50%);opacity:0;visibility:hidden;transition:opacity 0.3s ease, visibility 0.3s ease;}
+#game-footer > a:not(.title, .webgl-logo)::after{content:"";border-bottom:9px solid #068bc4;border-left:9px solid transparent;border-right:9px solid transparent;position:absolute;top:-9px;right:10px;transform:rotate(180deg);z-index:1000;opacity:0;visibility:hidden;transition:opacity 0.3s ease, visibility 0.3s ease;}
+#game-footer > a:not(.title, .webgl-logo):hover::before, #game-footer > a:not(.title, .webgl-logo):hover::after{opacity:1;visibility:visible;}
+#game-footer .bug::before{content:"Report a bug";left:-5px!important;}
+#game-footer .category::before{content:"Play more games";}
+#game-footer .fullscreen::before{content:"Fullscreen";}
+#game-footer .gamepad::before{content:"Mobile Controls";}
+#game-footer .category{background:url(/media/games/assets/img/drifted-icon-game-category.svg) no-repeat #1eaed3;}
+#game-footer .fullscreen{background:url(/media/games/assets/img/drifted-icon-full-screen.svg) no-repeat #1eaed3;}
+#game-footer .bug{background:url(/media/games/assets/img/drifted-icon-bug-fix.svg) no-repeat #1eaed3;}
+#game-footer .gamepad{background:url(/media/games/assets/img/keys-icon.png) no-repeat center #1eaed3;}
+#game-footer .title{margin:0 10px 0 0;}
+ruffle-object{position:absolute;top:0;bottom:0;left:0;right:0;width:auto;height:auto;}
+.b-game-area{position:relative;}
+#gameContainer{display:flex;justify-content:center;align-items:center;}
+.game-overlay{position:absolute;background-color:#FFF;top:0;bottom:0;left:0;right:0;opacity:.9;text-align:center;}
+.b-game-wrapper{position:relative;}
+.game-overlay img{margin-top:10%;max-width:400px;width:50%;}
+.game-overlay-loading{margin:20px;}
+.game-overlay-progress{border:1px solid #777;width:30%;margin:auto;height:10px;}
+.game-overlay-progress-filling{background-color:#777;width:0%;height:8px;}
+#c2canvasdiv{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);width:100%;height:auto;max-width:100vw;max-height:100vh;margin:0!important;}
+@media(hover: none){
+#gameContainer{-webkit-touch-callout:none;
+-webkit-user-select:none;
+-khtml-user-select:none;
+-moz-user-select:none;
+-ms-user-select:none;
+user-select:none;
+}
+#game-footer > a:not(.title, .webgl-logo):hover::before, #game-footer > a:not(.title, .webgl-logo):hover::after{display:none;}
+#game-footer>a:not(.title, .webgl-logo):hover{background-color:#1eaed3;}
+}
+.landing{align-items:center;background-size:cover;background-position:center;cursor:pointer;display:flex;flex-direction:column;flex-wrap:wrap;justify-content:center;position:absolute;top:0;bottom:0;right:0;left:0;width:100%;}
+.landing.custom::after{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background-color:rgba(0, 0, 0, 0.7);
+z-index:0;
+}
+.landing .button{background:linear-gradient(180deg, #f3843c 0%, #e93f3a 100%);border-radius:10px;color:#ffffff;display:block;font-weight:bold;font-size:30px;margin:25px 0 0;padding:20px 49px;text-transform:uppercase;z-index:1;}
+.landing .thumbnail{background-position:center center;background-repeat:no-repeat;border-radius:10px;display:inline-block;height:210px;width:256px;z-index:1;}
+@media(max-width:500px){
+.landing .thumbnail{display:none !important;}
+}
+.mobile-tooltip{text-align:center;width:250px;position:absolute;bottom:18px;right:2px;background-color:#444;color:#fff;padding:10px;border-radius:10px;border:2px solid red;box-shadow:5px 5px 5px rgba(0, 0, 0, 0.5);opacity:0.9;}
+.mobile-tooltip>div{position:relative;width:100%;height:100%;}
+.mobile-tooltip>div::after{content:'';position:absolute;left:50%;bottom:-22px;margin-left:-10px;width:20px;height:20px;transform:rotate(45deg);border-bottom:2px solid red;border-right:2px solid red;background-color:#444;box-shadow:5px 2px 5px rgba(0, 0, 0, 0.5);}</style>
+<div id="gameContainer" data-comment="loader basic">
+<div style="position:absolute;max-width:100%;max-height:100%;width:100%;height:100%;top:0;bottom:0;left:0;right:0;" class="b-game-area hide-overlay" id="b-game-area"></div><div id="game-overlay" class="game-overlay" data-json="https://www.drifted.com/wp-content/uploads/2024/10/drifted-chromebook.json" data-size="140971998">
+<img src="/media/drifted-logo.jpg" alt=""/>
+<div class="game-overlay-loading">Loading game: 0%</div><div class="game-overlay-progress">
+<div class="game-overlay-progress-filling"></div></div><div id="gamepad-tooltip" class="mobile-tooltip"><div>CLICK HERE TO SHOW/HIDE MOBILE CONTROLS!</div></div></div></div><div id="game-footer"> <a class="webgl-logo" href="https://www.drifted.com"></a> <a class="bug tooltip" href="https://www.drifted.com/contact/?game-referral=https://www.drifted.com/drifting-games/drifted-games-drift-hunters/"></a> <a class="category drifting-games tooltip" href="https://www.drifted.com/drifting-games/"></a> <a class="fullscreen tooltip" href="#"></a> <a id="gamepad" class="gamepad tooltip" href="#"></a> <a class="title" href="https://www.drifted.com/drifting-games/drifted-games-drift-hunters/">Drift Hunters</a></div><script src="/media/games/generic/unityLoader.js"></script>
+<script>
+try {
+document.domain='drifted.com';
+if(window.parent&&window.parent!==window){
+window.parent.document.domain='drifted.com';
+}} catch(e){
+console.log('Could not set document.domain:', e);
+}
+if(/iPad|iPhone|iPod/.test(navigator.userAgent)){
+try {
+if(window.parent&&window.parent!==window){
+window.parent.postMessage({action: 'setDomain'}, '*');
+}} catch(e){
+console.log('iOS cross-origin communication failed:', e);
+}}
+let button=document.getElementById('playButton');
+if(button){
+button.addEventListener('click', function(){
+button.parentNode.remove();
+initGame();
+});
+}
+else initGame();
+function initGame(){
+if(document.getElementById('flashObject')){
+initFlash();
+}
+if(document.getElementById('game-overlay')){
+var json_file=document.getElementById("game-overlay").dataset.json;
+if(typeof(json_file)==="undefined") alert("undefined!!");
+initUWEB(json_file);
+}
+if(document.getElementById('unity-container')){
+var json_file=document.getElementById("unity-container").dataset.json;
+if(typeof(json_file)==="undefined") alert("undefined!!");
+initUWEBNew(json_file);
+}}
+function initFlash(){
+window.RufflePlayer=window.RufflePlayer||{};
+window.RufflePlayer.config={
+autoplay: 'on',
+unmuteOverlay: 'hidden',
+"allowScriptAccess": false,
+/* "autoplay": "auto", */
+/* "unmuteOverlay": "visible", */
+"backgroundColor": null,
+"wmode": "window",
+"letterbox": "fullscreen",
+"warnOnUnsupportedContent": false,
+"contextMenu": "on",
+"showSwfDownload": false,
+"upgradeToHttps": window.location.protocol==="https:",
+"maxExecutionDuration": 15,
+"logLevel": "error",
+"base": null,
+"menu": true,
+"salign": "",
+"forceAlign": false,
+"scale": "showAll",
+"forceScale": false,
+"frameRate": null,
+"quality": "high",
+"splashScreen": false,
+"preferredRenderer": null,
+"openUrlMode": "allow",
+"allowNetworking": "all",
+"favorFlash": true,
+};
+if(typeof WebAssembly!=="object"||typeof WebAssembly.instantiate!=="function"){
+document.getElementById('noflash').removeAttribute('style');
+}
+}
+function initUWEBNew(json_file){
+var canvas=document.querySelector("#unity-canvas");
+var container=document.querySelector("#unity-container");
+var loadingBar=document.querySelector("#unity-loading-bar");
+var progressBarFull=document.querySelector("#unity-progress-bar-full");
+var gamePadTooltip=document.querySelector("#gamepad-tooltip");
+var initialize=false;
+loadingBar.style.display="block";
+console.log("json_file:", json_file);
+fetch(json_file)
+.then(response=> response.json())
+.then(jsonConfig=> {
+let jsonBasePath=json_file.substring(0, json_file.lastIndexOf("/") + 1);
+jsonBasePath=jsonBasePath.replace('https://dev.drifted.com', 'https://www.drifted.com');
+console.log("jsonBasePath:", jsonBasePath);
+jsonConfig.dataUrl=jsonBasePath + jsonConfig.dataUrl;
+jsonConfig.frameworkUrl=jsonBasePath + jsonConfig.frameworkUrl;
+jsonConfig.codeUrl=jsonBasePath + jsonConfig.codeUrl;
+console.log("dataUrl:", jsonConfig.dataUrl);
+console.log("frameworkUrl:", jsonConfig.frameworkUrl);
+console.log("codeUrl:", jsonConfig.codeUrl);
+if(typeof jsonConfig.showBanner!=="undefined"&&typeof window[jsonConfig.showBanner]==="function"){
+jsonConfig.showBanner=window[jsonConfig.showBanner];
+}
+jsonConfig.codeUrlSize=parseInt(container.getAttribute("data-code-size"), 10);
+jsonConfig.dataUrlSize=parseInt(container.getAttribute("data-size"), 10);
+jsonConfig.gameId=container.getAttribute("data-id");
+setTimeout(function(){
+var gamePadTooltip=document.querySelector("#gamepad-tooltip");
+if(gamePadTooltip){
+gamePadTooltip.remove();
+gamePadTooltip=null;
+}}, 5000);
+createUnityInstance(canvas, jsonConfig, (progress)=> {
+if(!initialize){
+if(progress < 0.9) progressBarFull.style.width=100 * progress + "%";
+else initDisplay();
+}}).then((unityInstance)=> {
+window.unityInstance=unityInstance;
+loadingBar.style.display="none";
+if(gamePadTooltip) gamePadTooltip.remove();
+}).catch((message)=> {
+alert(message);
+});
+})
+.catch(error=> console.error('Error loading JSON:', error));
+}
+function initDisplay(){
+var loadingBar=document.querySelector("#unity-loading-bar");
+if(loadingBar){
+initialize=true;
+loadingBar.innerHTML='<div class="spinner"><\/div><div id="loadingText">Initializing...<\/div>';
+}}
+function initUWEB(json_file){
+var block;
+if(document.getElementById("game-block")) block="game-block";
+else block="b-game-area";
+console.log("starting to instantiate");
+setTimeout(function(){
+var gamePadTooltip=document.querySelector("#gamepad-tooltip");
+if(gamePadTooltip){
+gamePadTooltip.remove();
+gamePadTooltip=null;
+}}, 5000); 
+var myGame=UnityLoader.instantiate(block, json_file, {
+onProgress: UnityProgressTS,
+Module: {
+onRuntimeInitialized: function (){
+document.querySelector(".game-overlay").style.display="none";
+var gamePadTooltip=document.querySelector("#gamepad-tooltip");
+if(gamePadTooltip) gamePadTooltip.remove();
+}}
+});
+}
+function UnityProgressTS(gameInstance, progress){
+if(!gameInstance.Module){
+return;
+}
+if(typeof gameInstance.Module.buildDownloadProgress.downloadAsmCode!=="undefined"){
+var p=Math.round((
+gameInstance.Module.buildDownloadProgress.downloadAsmCode.loaded +
+gameInstance.Module.buildDownloadProgress.downloadAsmFramework.loaded +
+gameInstance.Module.buildDownloadProgress.downloadAsmMemory.loaded +
+gameInstance.Module.buildDownloadProgress.downloadData.loaded
+) * 100 / document.querySelector(".game-overlay").dataset.size
+);
+document.querySelector(".game-overlay-loading").innerHTML="Loading game: " + Math.round(p) + "%";
+document.querySelector(".game-overlay-progress-filling").style.width=Math.round(p) + "%";
+}
+else {
+document.querySelector(".game-overlay-loading").innerHTML="Loading game: " + Math.round(100 * progress) + "%";
+document.querySelector(".game-overlay-progress-filling").style.width=Math.round(100 * progress) + "%";
+}}
+function handleEscKey(event){
+if(event.key==='Escape'||event.key==='Esc'){
+window.parent.document.body.classList.toggle('fullscreen-game');
+document.removeEventListener('keydown', handleEscKey);
+}}
+function callFnDisableAdRotation(){
+var isInIframe=(window.self!==window.top);
+if(isInIframe){
+console.log("In iframe");
+if(typeof window.top.fnDisableAdRotation==='function'){
+console.log("Calling function from parent window(1)");
+window.top.fnDisableAdRotation(); 
+}else{
+if(typeof top.fnDisableAdRotation==='function'){
+console.log("Calling function from parent window(2)");
+top.fnDisableAdRotation(); 
+}else{
+console.log("fnDisableAdRotation does not exist in parent window.");
+}}
+}else{
+console.log("In parent window");
+if(typeof fnDisableAdRotation==='function'){
+console.log("Calling function in parent window");
+fnDisableAdRotation(); 
+}else{
+console.log("fnDisableAdRotation does not exist in this window.");
+}}
+}
+function callFunctionIfExists(functionName){
+if(window.parent&&window.parent!==window){
+if(typeof window.parent[functionName]==="function"){
+console.log('Calling '+functionName+' in parent window.');
+window.parent[functionName](); 
+return;
+}}
+if(typeof window[functionName]==="function"){
+console.log('Calling '+functionName+' in current window.');
+window[functionName](); 
+}else{
+console.log('Function '+functionName+' does not exist in parent or current window.');
+}}
+document.addEventListener("DOMContentLoaded", function(){
+if(window!==window.parent){
+const links=document.querySelectorAll('#game-footer a');
+links.forEach(function(link){
+link.addEventListener('click', function(event){
+if(link.classList.contains('fullscreen')){
+try {
+if(window.parent.document){
+if(!window.parent.document.body.classList.contains('fullscreen-game')&&!document.body.classList.contains('fullscreen-game')&&typeof gameInstance!=="undefined"){
+gameInstance.SetFullscreen(1);
+event.preventDefault();
+return;
+}
+window.parent.document.body.classList.toggle('fullscreen-game');
+if(window.parent.document.body.classList.contains('fullscreen-game')) document.addEventListener('keydown', handleEscKey);
+else document.removeEventListener('keydown', handleEscKey);
+}} catch(e){
+window.parent.postMessage({action: 'toggleFullscreen'}, '*');
+}
+const gameArea=document.getElementById('b-game-area');
+if(gameArea){
+const iframe=gameArea.querySelector('iframe');
+if(iframe) iframe.focus();
+}
+window.scrollBy(0, 100);
+callFunctionIfExists("disableAdRotation");
+event.preventDefault();
+return;
+}
+if(link.classList.contains('gamepad')){
+const gameArea=document.getElementById('b-game-area');
+if(gameArea) gameArea.classList.toggle('hide-overlay');
+event.preventDefault();
+const gameContainer=document.getElementById("gameContainer");
+if(gameContainer) gameContainer.focus();
+return;
+}
+const url=this.getAttribute('href');
+if(url) window.parent.location.href=url;
+event.preventDefault();
+})
+});
+}else{
+const links=document.querySelectorAll('#game-footer a');
+links.forEach(function(link){
+link.addEventListener('click', function(event){
+if(link.classList.contains('fullscreen')){
+if(!window.parent.document.body.classList.contains('fullscreen-game')&&!document.body.classList.contains('fullscreen-game')&&typeof gameInstance!=="undefined"){
+gameInstance.SetFullscreen(1);
+event.preventDefault();
+return;
+}
+document.body.classList.toggle('fullscreen-game');
+if(window.parent.document.body.classList.contains('fullscreen-game')) document.addEventListener('keydown', handleEscKey);
+else document.removeEventListener('keydown', handleEscKey);
+const gameArea=document.getElementById('b-game-area');
+if(gameArea){
+const iframe=gameArea.querySelector('iframe');
+if(iframe) iframe.focus();
+}
+window.scrollBy(0, 100);
+callFunctionIfExists("disableAdRotation");
+event.preventDefault();
+return;
+}
+if(link.classList.contains('gamepad')){
+const gameArea=document.querySelector('.b-game-area');
+if(gameArea) gameArea.classList.toggle('hide-overlay');
+event.preventDefault();
+const gameContainer=document.getElementById("gameContainer");
+if(gameContainer) gameContainer.focus();
+return;
+}})
+});
+}
+const params=new URLSearchParams(window.location.search);
+const ratio=params.get('ratio');
+if(ratio!=null){
+console.log("FORCED RATIO:"+ratio);
+const gwrapper=document.querySelector('.large-game-wrapper');
+if(gwrapper){
+gwrapper.style.paddingBottom='calc((100% / ('+ratio+')) + 38px)';
+}
+const garrea=document.querySelector('.b-game-area');
+if(garrea){
+garrea.style.width='calc(100vh*('+ratio+'))';
+garrea.style.height='calc(100vw/('+ratio+'))';
+}}
+});</script>
+<script>const isIpad=(/Macintosh/i.test(navigator.userAgent)&&navigator.maxTouchPoints&&navigator.maxTouchPoints > 1);
+const isMobileDevice=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints > 1)||isIpad;
+if(isMobileDevice){
+const css=document.createElement('link');
+css.rel='stylesheet';
+css.href="/media/games/assets/css/overlay.css";
+css.async=true;
+document.head.appendChild(css);
+const script=document.createElement('script');
+script.src="/media/games/assets/js/overlay.js";
+script.async=true;
+script.onload=function(){
+window.initializeOverlay("canvas", "#b-game-area", "config1");
+hasOverlay=true;
+};
+document.body.appendChild(script);
+}
+else if(document.getElementById('gamepad')){
+document.getElementById('gamepad').remove();
+document.getElementById('gamepad-tooltip').remove();
+}</script>
+</body>
+</html>
